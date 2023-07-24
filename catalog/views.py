@@ -2,8 +2,6 @@ from django.shortcuts import render
 from catalog.models import Product, Category
 
 
-# from lib2to3.fixes.fix_input import context
-
 def home(request):
     category_list = Category.objects.all()
     context = {
