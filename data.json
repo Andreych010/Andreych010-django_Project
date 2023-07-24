@@ -1,0 +1,57 @@
+[
+  {
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+      "name": "Смартфон",
+      "description": "Asus",
+      "preview": "",
+      "category": "телефоны",
+      "purchase_price": 15000,
+      "date_of_creation": "2023-07-14",
+      "last_modified_date": "2023-07-14"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+      "name": "Планшет",
+      "description": "apple",
+      "preview": "",
+      "category": "планшеты",
+      "purchase_price": 690000,
+      "date_of_creation": "2023-07-14",
+      "last_modified_date": "2023-07-14"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+      "name": "Ноутбук",
+      "description": "Asus",
+      "preview": "",
+      "category": "ноутбуки",
+      "purchase_price": 70000,
+      "date_of_creation": "2023-07-14",
+      "last_modified_date": "2023-07-14"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "ноутбуки",
+      "description": "Сегодня ноутбуки используются в самых разных условиях, таких как на работе, в образовании, для игр, просмотра веб-страниц, для персональных мультимедиа и для общего использования домашнего компьютера."
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "смартфоны",
+      "description": "Смартфон — это умный мобильный телефон. Устройство, с помощью которого можно звонить, отправлять письма."
+    }
+  }
+]

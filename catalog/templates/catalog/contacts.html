@@ -1,0 +1,49 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+    <div class="col-lg-6 col-md-4 col-sm-10">
+        <div class="card mb-4 box-shadow">
+            <div class="card-body">
+                <table class="table table-striped">
+                    <tr>
+                        <td class="w-25">Страна</td>
+                        <td>Россия</td>
+                    </tr>
+                    <tr>
+                        <td class="w-25">ИНН</td>
+                        <td>91-1144442</td>
+                    </tr>
+                    <tr>
+                        <td class="w-25">Адрес</td>
+                        <td>Калининград, Советский, 135</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Свяжитесь с нами</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" action="" class="form-floating">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Ваше имя"
+                               required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="phone" class="form-control" id="phone"
+                               placeholder="Контактный телефон" required>
+                    </div>
+                    <div class="mb-3">
+                            <textarea type="text" name="message" class="form-control" id="message"
+                                      placeholder="Сообщение" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
