@@ -1,14 +1,30 @@
 from django.shortcuts import render
+
+from blog.models import BlogPost
 from catalog.models import Product, Category
+from django.views.generic import ListView, DetailView, CreateView
 
 
-def home(request):
-    category_list = Category.objects.all()
-    context = {
-        'object_list': category_list,
+class HomeListView(ListView):
+    model = Category
+    extra_context = {
         'title': 'Категории'
     }
-    return render(request, 'catalog/home.html', context)
+
+
+# class ContactView(TemplateView):
+#     template_name = 'catalog/contacts.html'
+#     extra_context = {
+#         'title': 'Контакты'
+#     }
+#
+#     def get_context_data(self, **kwargs):
+#         if self.request.method == 'POST':
+#             name = self.request.POST.get('name')
+#             email = self.request.POST.get('email')
+#             message = self.request.POST.get('message')
+#             print(f'Вам поступило новое сообщение: "{message}"\nname: {name}, phone: ({email})')
+#         return super().get_context_data(**kwargs)
 
 
 def contacts(request):
@@ -23,28 +39,41 @@ def contacts(request):
     return render(request, 'catalog/contacts.html', context)
 
 
-def products(request):
-    product_list = Product.objects.all()
-    context = {
-        'object_list': product_list,
+class ProductsListView(ListView):
+    model = Product
+    extra_context = {
         'title': 'Товары'
     }
-    return render(request, 'catalog/products.html', context)
 
 
-def product_card(request, pk):
-    product_list = Product.objects.get(pk=pk)
-    context = {
-        'object': Product.objects.get(id=pk),
-        'title': f'{product_list.name}'
+class Product_cardDetailView(DetailView):
+    model = Product
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        product_item = Product.objects.get(pk=self.kwargs.get('pk'))
+        context_data['title'] = f'{product_item.name}'
+        return context_data
+
+
+class Category_cardDetailView(DetailView):
+    model = Product
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        product_item = Category.objects.get(pk=self.kwargs.get('pk'))
+        context_data['title'] = f'{product_item.name}'
+        return context_data
+
+
+class BaseListView(ListView):
+    model = BlogPost
+    template_name = 'blog/base.html'
+    extra_context = {
+        'title': 'Блог'
     }
-    return render(request, 'catalog/product_card.html', context)
 
 
-def category_card(request, pk):
-    product_list = Category.objects.get(pk=pk)
-    context = {
-        'object': Product.objects.get(id=pk),
-        'title': f'{product_list.name}'
-    }
-    return render(request, 'catalog/category_card.html', context)
+class BlogPostCreateView(CreateView):
+    model = BlogPost
+    fields = ('title', 'slug', 'body', 'preview', 'sign_publication', 'number_views',)
