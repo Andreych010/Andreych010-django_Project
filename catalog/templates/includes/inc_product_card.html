@@ -1,6 +1,6 @@
 {% load mytag %}
 
-<div class="col-5 ">
+<div class="col-4 ">
     <div class="card mb-2 box-shadow">
         <div class="card-header">
             <h4 class="my-0 font-weight-normal">{{ object.name }}</h4>
@@ -8,8 +8,17 @@
         <div class="card-body">
             <img src="{{ object.preview | my_media }}" alt=""/>
             <h5 class="card-title pricing-card-title">Цена:</h5>
-            <h6 class="card-title pricing-card-title">{{ object.purchase_price }}</h6>
-            <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:product_card' object.pk %}">Купить</a>
+            <h6 class="card-title pricing-card-title">{{ object.purchase_price }} </h6>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <a class="p-2 btn btn-outline-primary"
+                       href="{% url 'catalog:product_card' object.pk %}">Посмотреть</a>
+                    <a class="p-2 btn btn-outline-primary"
+                       href="{% url 'catalog:product_update' object.pk %}">Редактировать</a>
+                    <a class="p-2 btn btn-outline-primary"
+                       href="{% url 'catalog:product_delete' object.pk %}">Удалить</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

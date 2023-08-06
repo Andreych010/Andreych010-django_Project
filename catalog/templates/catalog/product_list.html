@@ -1,8 +1,10 @@
 {% extends 'catalog/base.html' %}
 {% load mytag %}
 {% block content %}
+    <div class="col-12 mb-2">
+        <a class="p-2 btn btn-outline-primary mb-5" href="{% url 'catalog:product_create' %}">Добавить товар</a>
+    </div>
     {% for object in object_list %}
-        {% include 'includes/../includes/inc_product_card.html' %}
+        {% include 'includes/inc_product_card.html' %}
     {% endfor %}
-
 {% endblock %}
