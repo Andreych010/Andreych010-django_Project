@@ -1,0 +1,16 @@
+{% extends 'catalog/base.html' %}
+{% block content %}
+    <div class="col-12">
+        <form action="{% url 'users:confirm' %}" method="post">
+            {% csrf_token %}
+            <label for="confirm_code">
+                Введите код
+                <input type="text" name="code_user" id="confirm_code">
+            </label>
+            <div>
+                <h1>{{ error }}</h1>
+            </div>
+            <button type="submit">Подтвердить</button>
+        </form>
+    </div>
+{% endblock %}

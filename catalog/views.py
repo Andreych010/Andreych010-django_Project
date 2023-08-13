@@ -1,7 +1,7 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from prompt_toolkit.validation import ValidationError
 
 from blog.models import BlogPost
 from catalog.forms import ProductForm, VersionForm
@@ -28,14 +28,14 @@ def contacts(request):
     return render(request, 'catalog/contacts.html', context)
 
 
-class ProductsListView(ListView):
+class ProductsListView(LoginRequiredMixin, ListView):
     model = Product
     extra_context = {
         'title': 'Товары'
     }
 
 
-class Product_cardDetailView(DetailView):
+class Product_cardDetailView(LoginRequiredMixin, DetailView):
     model = Product
 
     def get_context_data(self, **kwargs):
@@ -45,7 +45,7 @@ class Product_cardDetailView(DetailView):
         return context_data
 
 
-class Category_cardDetailView(DetailView):
+class Category_cardDetailView(LoginRequiredMixin, DetailView):
     model = Product
 
     def get_context_data(self, **kwargs):
@@ -68,7 +68,8 @@ class BlogPostCreateView(CreateView):
     fields = ('title', 'slug', 'body', 'preview', 'sign_publication', 'number_views',)
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
+    # LoginRequiredMixin гарантирует, что только авторизованные пользователи смогут создавать новые товары
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:products')
@@ -76,8 +77,12 @@ class ProductCreateView(CreateView):
         'title': 'Создание нового товара'
     }
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user  # Установка пользователя из request.user
+        return super().form_valid(form)
 
-class ProductUpdateView(UpdateView):
+
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:products')
@@ -103,7 +108,7 @@ class ProductUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:products')
     extra_context = {

@@ -1,0 +1,32 @@
+{% extends 'catalog/base.html' %}
+{% load mytag %}
+{% block content %}
+{% if object.product_ver.exists %}
+                        {% for version in object.product_ver.all %}
+                            {% if version.active_version %}
+                                <small class="text-dark"> <div class="col-5 ">
+        <div class="card mb-2 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ object.product }}</h4>
+            </div>
+            <div class="card-body">
+                <img src="{{ object.preview | my_media }}" alt=""/>
+                <h5 class="card-title pricing-card-title">Описание:</h5>
+                <h6 class="card-title pricing-card-title">{{ object.number_version}}</h6>
+                <h5 class="card-title pricing-card-title">Цена:</h5>
+                <h6 class="card-title pricing-card-title">{{ object.name_version }}</h6>
+                <h5 class="card-title pricing-card-title">Дата последнего изменения:</h5>
+                <h6 class="card-title pricing-card-title">{{ object.active_version }}</h6>
+            </div>
+        </div>
+    </div>/</small><br>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <small class="text-muted">Версия: отсутствует</small><br>
+                    {% endif %}
+
+
+
+
+{% endblock %}

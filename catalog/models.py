@@ -1,5 +1,6 @@
 from django.db import models
 
+
 NULLABLE = {'null': True, 'blank': True}
 
 
@@ -25,6 +26,7 @@ class Product(models.Model):
     date_of_creation = models.DateField(auto_now_add=True, verbose_name='Дата создания')
     last_modified_date = models.DateField(auto_now=True, verbose_name='Дата последнего изменения')
     active_version = models.BooleanField(verbose_name='признак текущей версии', **NULLABLE)
+    user = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='Пользователь')
 
     def __str__(self):
         return f'{self.name}, {self.description}, {self.preview}, {self.category},' \

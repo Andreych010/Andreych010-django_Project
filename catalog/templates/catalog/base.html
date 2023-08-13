@@ -6,9 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>django_Project</title>
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+{#    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"#}
+{#            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"#}
+{#            crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"#}
+{#            integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"#}
+{#            crossorigin="anonymous"></script>#}
+{#    <-- Always remember to call the above files first before calling the bootstrap.min.js file -->#}
+{#    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"#}
+{#            integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"#}
+{#            crossorigin="anonymous"></script>#}
+
 </head>
 
 <body>
+
 
 {% include 'includes/../includes/inc_catalog_name.html' %}
 
@@ -27,42 +39,57 @@
 </div>
 <footer class="pt-4 my-md-5 pt-md-5 border-top">
     <div class="row">
-{#        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">#}
+        {#        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">#}
 
-            <div class="col-6 col-md">
-                Magazz
-                <small class="d-block mb-3 text-muted">&copy;{% now 'Y' %}</small>
-            </div>
-            <div class="col-6 col-md">
-                <h5>Категории</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Рассылки</a></li>
-                    <li><a class="text-muted" href="#">Телеграм боты</a></li>
-                    <li><a class="text-muted" href="#">Полезные утилиты</a></li>
-                    <li><a class="text-muted" href="#">Веб-приложения</a></li>
-                    <li><a class="text-muted" href="#">Микросервисы</a></li>
-                </ul>
-            </div>
-            <div class="col-6 col-md">
-                <h5>Дополнительно</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Мы пишем</a></li>
-                </ul>
-            </div>
-            <div class="col-6 col-md">
-                <h5>О нас</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="{% url 'catalog:contacts' %}">Контакты</a></li>
-                </ul>
-            </div>
+        <div class="col-6 col-md">
+            Magazz
+            <small class="d-block mb-3 text-muted">&copy;{% now 'Y' %}</small>
         </div>
-
+        <div class="col-6 col-md">
+            <h5>Категории</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">Рассылки</a></li>
+                <li><a class="text-muted" href="#">Телеграм боты</a></li>
+                <li><a class="text-muted" href="#">Полезные утилиты</a></li>
+                <li><a class="text-muted" href="#">Веб-приложения</a></li>
+                <li><a class="text-muted" href="#">Микросервисы</a></li>
+            </ul>
+        </div>
+        <div class="col-6 col-md">
+            <h5>Дополнительно</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">Мы пишем</a></li>
+            </ul>
+        </div>
+        <div class="col-6 col-md">
+            <h5>О нас</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="{% url 'catalog:contacts' %}">Контакты</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Выпадающий список
+        </button>
+        <ul class="dropdown-menu">
+            <li>
+                <button class="dropdown-item" type="button">Элемент выпадающего списка</button>
+            </li>
+            <li>
+                <button class="dropdown-item" type="button">Элемент выпадающего списка</button>
+            </li>
+            <li>
+                <button class="dropdown-item" type="button">Элемент выпадающего списка</button>
+            </li>
+        </ul>
+    </div>
 </footer>
 </div>
 </div>
 
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/holder.min.js' %}"></script>
 <script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
 </html>
