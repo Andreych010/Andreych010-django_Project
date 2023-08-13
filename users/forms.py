@@ -5,7 +5,7 @@ from catalog.forms import StyleFormMixin
 from users.models import User
 
 
-class LoginUserForm(AuthenticationForm):
+class LoginUserForm(StyleFormMixin, AuthenticationForm):
     username = forms.EmailField(widget=forms.TextInput(attrs={'autofocus': True}))
     password = forms.CharField(
         label="Password",
