@@ -1,0 +1,101 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Смартфоны",
+      "description": "\"Смартфон — это умный мобильный телефон. Устройство, с помощью которого можно звонить, отправлять письма.\""
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Планшеты",
+      "description": "\"Планшетный компьютер — универсальное мобильное устройство, которое может использоваться разными людьми для различных целей.\""
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "name": "Ноутбуки",
+      "description": "\"Сегодня ноутбуки используются в самых разных условиях, таких как на работе, в образовании, для игр, просмотра веб-страниц, для персональных мультимедиа и для общего использования домашнего компьютера.\""
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+      "name": "Смартфон ASUS Zenfone",
+      "description": "\"ядер - 8x(2.84 ГГц), 8 Гб, 2 SIM, AMOLED, 2400x1080, камера 64+12 Мп, NFC, 5G, GPS, 4000 мА*ч\",",
+      "preview": "Product/zenfon.jpg",
+      "category": 1,
+      "purchase_price": 12345,
+      "date_of_creation": "2023-08-13",
+      "last_modified_date": "2023-08-13",
+      "active_version": true,
+      "user": 1
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "name": "планшет, apple,ipad air,5\"",
+      "description": "\"Характеристики\\r\\nБренд - Apple\\r\\nЭкран - 10.9\\\", 2360x1640\\r\\nОперативная память - 8 Gb\\r\\nМобильная связь - 4G (LTE)\\r\\nВстроенные динамики - Есть\\r\\nВстроенная память - 64 ГБ\\r\\nСлот для карт памяти - нет\\r\\nОперационная система  - iOS\\r\\nМатериал корпуса - металл\\r\\nЦвет корпуса - Голубой\\r\\nСенсорный экран - Да\\r\\nПроцессор - Apple M1\\r\\nВидеопроцессор - Apple M1 (8 ядер)\",",
+      "preview": "",
+      "category": 2,
+      "purchase_price": 60000,
+      "date_of_creation": "2023-08-13",
+      "last_modified_date": "2023-08-13",
+      "active_version": null,
+      "user": 1
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+      "name": "Ноутбук ASUS TUF Gaming FX507ZE",
+      "description": "\"Бренд: ASUS\\r\\nТип ноутбука: Ноутбук\\r\\nОперационная система: Без ОС\\r\\nЦвет: Черный\\r\\nДиагональ экрана: 15.6\\\"\\r\\nРазрешение экрана, px: 1920x1080\\r\\nСенсорный экран: Нет\\r\\nПроцессор: Intel Core i7-12700H\\r\\nКоличество ядер процессора: 14\\r\\nЧастота процессора: 1440 МГц\\r\\nОбъем оперативной памяти: 16 Гб\\r\\nТип оперативной памяти: DDR5\\r\\nТип видеокарты: Дискретная и встроенная\\r\\nВидеопроцессор: Intel UHD Graphics\\r\\nКонфигурация накопителей: SSD\\r\\nОбъем накопителя (HDD): Отсутствует\\r\\nОбъем накопителя (SSD): 512 ГБ\\r\\nЕмкость аккумулятора: 90 Вт*ч\",",
+      "preview": "Product/ноут.jpg",
+      "category": 3,
+      "purchase_price": 120000,
+      "date_of_creation": "2023-08-13",
+      "last_modified_date": "2023-08-13",
+      "active_version": true,
+      "user": 1
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+      "name": "test",
+      "description": "test",
+      "preview": "",
+      "category": 1,
+      "purchase_price": 12345,
+      "date_of_creation": "2023-08-13",
+      "last_modified_date": "2023-08-13",
+      "active_version": null,
+      "user": 1
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+      "name": "test1",
+      "description": "test1",
+      "preview": "",
+      "category": 2,
+      "purchase_price": 1234,
+      "date_of_creation": "2023-08-13",
+      "last_modified_date": "2023-08-13",
+      "active_version": null,
+      "user": 5
+    }
+  }
+]
