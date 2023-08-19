@@ -17,7 +17,7 @@ class StyleFormMixin:
 class ProductForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Product
-        exclude = ('active_version', 'user')
+        exclude = ('user',)
 
     def clean_name(self):
         '''
@@ -36,3 +36,9 @@ class VersionForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Version
         fields = '__all__'
+
+
+class ModeratorForm(StyleFormMixin, forms.ModelForm):
+    class Meta:
+        model = Product
+        exclude = ('preview', 'user', 'name', 'purchase_price',)

@@ -1,4 +1,6 @@
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.core.mail import send_mail
 from django.shortcuts import redirect, render
@@ -89,6 +91,7 @@ class ProfileView(UpdateView):
         return self.request.user
 
 
+# @login_required
 def user_gen_password(request):
     user_email = request.POST.get("user_email")
     # Получаем почту (с формы), на которую отправлять новый пароль

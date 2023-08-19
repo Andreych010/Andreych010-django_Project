@@ -21,23 +21,25 @@
                     </div>
                 </div>
             </div>
-            {% if object %}
-                <div class="col-6">
-                    <div class="card-body">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                Версия товара
-                            </h3>
-                            {{ formset.management_form }}
-                            {% for form in formset.forms %}
-                                {{ form.as_p }}
-                                {% if not forloop.last %}
-                                    <hr>
-                                {% endif %}
-                            {% endfor %}
+            {% if perms.catalog.change_version %}
+                {% if object %}
+                    <div class="col-6">
+                        <div class="card-body">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    Версия товара
+                                </h3>
+                                {{ formset.management_form }}
+                                {% for form in formset.forms %}
+                                    {{ form.as_p }}
+                                    {% if not forloop.last %}
+                                        <hr>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endif %}
             {% endif %}
         </form>
     </div>

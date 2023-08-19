@@ -1,10 +1,11 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.forms import inlineformset_factory
+from django.http import Http404
 from django.shortcuts import render
 from django.urls import reverse_lazy
 
 from blog.models import BlogPost
-from catalog.forms import ProductForm, VersionForm
+from catalog.forms import ProductForm, VersionForm, ModeratorForm
 from catalog.models import Product, Category, Version
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -63,11 +64,6 @@ class BaseListView(ListView):
     }
 
 
-class BlogPostCreateView(CreateView):
-    model = BlogPost
-    fields = ('title', 'slug', 'body', 'preview', 'sign_publication', 'number_views',)
-
-
 class ProductCreateView(LoginRequiredMixin, CreateView):
     # LoginRequiredMixin гарантирует, что только авторизованные пользователи смогут создавать новые товары
     model = Product
@@ -82,13 +78,33 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
     form_class = ProductForm
+    permission_required = 'catalog.change_product'
     success_url = reverse_lazy('catalog:products')
     extra_context = {
         'title': 'Редактирование товара'
     }
+
+    def get_object(self, queryset=None):
+        '''
+        Проверяет права доступа, если пользователь пытается редактировать не свой товар
+        выкидывает ошибку Http404
+        '''
+        self.object = super().get_object(queryset)
+        if self.object.user != self.request.user:
+            raise Http404
+        return self.object
+
+    def test_func(self):
+        first_option = self.request.user.groups.filter(name='moderator').exists()
+        second_options = self.request.user.is_superuser
+        if first_option:
+            self.form_class = ModeratorForm
+        if second_options:
+            self.form_class = ProductForm
+        return first_option or second_options
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -108,9 +124,20 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class ProductDeleteView(LoginRequiredMixin, DeleteView):
+class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Product
+    permission_required = 'catalog.delete_product'
     success_url = reverse_lazy('catalog:products')
     extra_context = {
         'title': 'Удаление товара'
     }
+
+    # def get_object(self, queryset=None):
+    #     '''
+    #     Проверяет права доступа, если пользователь пытается удалить не свой товар
+    #     выкидывает ошибку Http404
+    #     '''
+    #     self.object = super().get_object(queryset)
+    #     if self.object.user != self.request.user:
+    #         raise Http404
+    #     return self.object

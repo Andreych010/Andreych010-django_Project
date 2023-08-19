@@ -25,7 +25,7 @@ class Product(models.Model):
     purchase_price = models.IntegerField(verbose_name='цена товара')
     date_of_creation = models.DateField(auto_now_add=True, verbose_name='Дата создания')
     last_modified_date = models.DateField(auto_now=True, verbose_name='Дата последнего изменения')
-    active_version = models.BooleanField(verbose_name='признак текущей версии', **NULLABLE)
+    is_published = models.BooleanField(default=False, verbose_name='признак текущей публикации', **NULLABLE)
     user = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='Пользователь')
 
     def __str__(self):
@@ -33,7 +33,7 @@ class Product(models.Model):
                f'{self.purchase_price}, {self.date_of_creation}, {self.last_modified_date}'
 
     class Meta:
-        verbose_name = 'наименование'
+        verbose_name = 'Product'
         verbose_name_plural = 'Product'
         ordering = ('id',)
 

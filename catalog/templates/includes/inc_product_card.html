@@ -13,10 +13,16 @@
                 <div class="btn-group">
                     <a class="p-2 btn btn-outline-primary"
                        href="{% url 'catalog:product_card' object.pk %}">Посмотреть</a>
-                    <a class="p-2 btn btn-outline-primary"
-                       href="{% url 'catalog:product_update' object.pk %}">Редактировать</a>
-                    <a class="p-2 btn btn-outline-primary"
-                       href="{% url 'catalog:product_delete' object.pk %}">Удалить</a>
+                    {% if perms.catalog.change_product %}
+                        <a class="p-2 btn btn-outline-primary"
+                           href="{% url 'catalog:product_update' object.pk %}">Редактировать</a>
+                    {% endif %}
+                    {% if perms.catalog.delete_product %}
+                        <a class="p-2 btn btn-outline-primary"
+                           href="{% url 'catalog:product_delete' object.pk %}">Удалить</a>
+                    {% endif %}
+
+
                 </div>
             </div>
         </div>
