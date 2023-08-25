@@ -24,7 +24,7 @@
             </div>
             <div class="card-body">
                 {% if object.product_ver.exists %}
-                    {% for version in object.product_ver.all %}
+                    {% for version in versions %}
                         {% if version.active_version %}
                             <p class="text-dark">
                                 Версия № {{ version.number_version }},

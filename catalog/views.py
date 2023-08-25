@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
+from django.core.cache import cache
 from django.forms import inlineformset_factory
 from django.http import Http404
 from django.shortcuts import render
@@ -9,12 +10,29 @@ from catalog.forms import ProductForm, VersionForm, ModeratorForm
 from catalog.models import Product, Category, Version
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
+from django_project import settings
+from django_project.settings import CACHE_ENABLED
+
 
 class HomeListView(ListView):
     model = Category
     extra_context = {
         'title': 'Категории'
     }
+
+    # def cache_example(self):
+    #     if CACHE_ENABLED:
+    #         # Проверяем включенность кеша
+    #         key = 'category_list'  # Создаем ключ для хранения
+    #         category_list = cache.get(key)  # Пытаемся получить данные
+    #         if category_list is None:
+    #             # Если данные не были получены из кеша, то выбираем из БД и записываем в кеш
+    #             students_list = Category.objects.all()
+    #             cache.set(key, category_list)
+    #     else:
+    #         # Если кеш не был подключен, то просто обращаемся к БД
+    #         category_list = Category.objects.all()
+    #     return category_list
 
 
 def contacts(request):
@@ -41,8 +59,15 @@ class Product_cardDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        product_item = Product.objects.get(pk=self.kwargs.get('pk'))
-        context_data['title'] = f'{product_item.name}'
+        if settings.CACHE_ENABLED:
+            key = f'version_list_{self.object.pk}'
+            version_list = cache.get(key)
+            if version_list is None:
+                version_list = self.object.product_ver.all()
+                cache.set(key, version_list)
+        else:
+            version_list = self.object.product_ver.all()
+        context_data['versions'] = version_list
         return context_data
 
 
@@ -72,6 +97,15 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     extra_context = {
         'title': 'Создание нового товара'
     }
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
+        if self.request.method == 'POST':
+            context_data['formset'] = VersionFormset(self.request.POST, instance=self.object)
+        else:
+            context_data['formset'] = VersionFormset(instance=self.object)
+        return context_data
 
     def form_valid(self, form):
         form.instance.user = self.request.user  # Установка пользователя из request.user
@@ -131,13 +165,3 @@ class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
     extra_context = {
         'title': 'Удаление товара'
     }
-
-    # def get_object(self, queryset=None):
-    #     '''
-    #     Проверяет права доступа, если пользователь пытается удалить не свой товар
-    #     выкидывает ошибку Http404
-    #     '''
-    #     self.object = super().get_object(queryset)
-    #     if self.object.user != self.request.user:
-    #         raise Http404
-    #     return self.object
